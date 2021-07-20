@@ -54,11 +54,11 @@ func NewCmdExtensions(f *cmdutil.Factory) *cobra.Command {
 
 					t.AddField(fmt.Sprintf("gh %s", c.Name()), nil, nil)
 					t.AddField(repo, nil, nil)
-					var updatable string
-					if c.Updatable() {
-						updatable = "Update available"
+					var updateAvailable string
+					if c.UpdateAvailable() {
+						updateAvailable = "Update available"
 					}
-					t.AddField(updatable, nil, cs.Green)
+					t.AddField(updateAvailable, nil, cs.Green)
 					t.EndRow()
 				}
 				return t.Render()

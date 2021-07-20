@@ -26,8 +26,8 @@ var _ Extension = &ExtensionMock{}
 // 			URLFunc: func() string {
 // 				panic("mock out the URL method")
 // 			},
-// 			UpdatableFunc: func() bool {
-// 				panic("mock out the Updatable method")
+// 			UpdateAvailableFunc: func() bool {
+// 				panic("mock out the UpdateAvailable method")
 // 			},
 // 		}
 //
@@ -45,8 +45,8 @@ type ExtensionMock struct {
 	// URLFunc mocks the URL method.
 	URLFunc func() string
 
-	// UpdatableFunc mocks the Updatable method.
-	UpdatableFunc func() bool
+	// UpdateAvailableFunc mocks the UpdateAvailable method.
+	UpdateAvailableFunc func() bool
 
 	// calls tracks calls to the methods.
 	calls struct {
@@ -59,14 +59,14 @@ type ExtensionMock struct {
 		// URL holds details about calls to the URL method.
 		URL []struct {
 		}
-		// Updatable holds details about calls to the Updatable method.
-		Updatable []struct {
+		// UpdateAvailable holds details about calls to the UpdateAvailable method.
+		UpdateAvailable []struct {
 		}
 	}
-	lockName      sync.RWMutex
-	lockPath      sync.RWMutex
-	lockURL       sync.RWMutex
-	lockUpdatable sync.RWMutex
+	lockName            sync.RWMutex
+	lockPath            sync.RWMutex
+	lockURL             sync.RWMutex
+	lockUpdateAvailable sync.RWMutex
 }
 
 // Name calls NameFunc.
@@ -147,28 +147,28 @@ func (mock *ExtensionMock) URLCalls() []struct {
 	return calls
 }
 
-// Updatable calls UpdatableFunc.
-func (mock *ExtensionMock) Updatable() bool {
-	if mock.UpdatableFunc == nil {
-		panic("ExtensionMock.UpdatableFunc: method is nil but Extension.Updatable was just called")
+// UpdateAvailable calls UpdateAvailableFunc.
+func (mock *ExtensionMock) UpdateAvailable() bool {
+	if mock.UpdateAvailableFunc == nil {
+		panic("ExtensionMock.UpdateAvailableFunc: method is nil but Extension.UpdateAvailable was just called")
 	}
 	callInfo := struct {
 	}{}
-	mock.lockUpdatable.Lock()
-	mock.calls.Updatable = append(mock.calls.Updatable, callInfo)
-	mock.lockUpdatable.Unlock()
-	return mock.UpdatableFunc()
+	mock.lockUpdateAvailable.Lock()
+	mock.calls.UpdateAvailable = append(mock.calls.UpdateAvailable, callInfo)
+	mock.lockUpdateAvailable.Unlock()
+	return mock.UpdateAvailableFunc()
 }
 
-// UpdatableCalls gets all the calls that were made to Updatable.
+// UpdateAvailableCalls gets all the calls that were made to UpdateAvailable.
 // Check the length with:
-//     len(mockedExtension.UpdatableCalls())
-func (mock *ExtensionMock) UpdatableCalls() []struct {
+//     len(mockedExtension.UpdateAvailableCalls())
+func (mock *ExtensionMock) UpdateAvailableCalls() []struct {
 } {
 	var calls []struct {
 	}
-	mock.lockUpdatable.RLock()
-	calls = mock.calls.Updatable
-	mock.lockUpdatable.RUnlock()
+	mock.lockUpdateAvailable.RLock()
+	calls = mock.calls.UpdateAvailable
+	mock.lockUpdateAvailable.RUnlock()
 	return calls
 }

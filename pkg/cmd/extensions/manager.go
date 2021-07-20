@@ -99,9 +99,9 @@ func (m *Manager) list(includeMetadata bool) []extensions.Extension {
 			updateAvailable = m.checkUpdateAvailable(f.Name())
 		}
 		results = append(results, &Extension{
-			path:      filepath.Join(dir, f.Name(), f.Name()),
-			url:       remoteUrl,
-			updatable: updateAvailable,
+			path:            filepath.Join(dir, f.Name(), f.Name()),
+			url:             remoteUrl,
+			updateAvailable: updateAvailable,
 		})
 	}
 	return results
